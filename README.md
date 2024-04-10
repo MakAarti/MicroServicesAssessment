@@ -177,8 +177,8 @@ After running discovery-service, its monitoring console available on `8761` port
 
 ### Swagger
 
-http://localhost:8082/swagger-ui/index.html
-http://localhost:8081/swagger-ui/index.html
+http://localhost:8082/swagger-ui/index.html ( student-service )
+http://localhost:8081/swagger-ui/index.html ( transaction-service )
 
 ### H2-Database Console
 
