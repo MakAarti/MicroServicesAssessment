@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "d0824523-0044-4daf-9adc-b5e3b4af3d4d",
+		"name": "MicroServiceAssessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10114764"
+	},
+	"item": [
+		{
+			"name": "Add Student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"John\",\r\n    \"grade\" : \"1\",\r\n    \"mobile\" : \"9897865766\",\r\n    \"schoolName\" : \"St Paul Convent School\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/student",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/students",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 1,\r\n    \"name\" : \"John\",\r\n    \"grade\" : \"2\",\r\n    \"mobile\" : \"9897865766\",\r\n    \"schoolName\" : \"St Paul Convent School\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/student/1",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Soft Delete/Inactivate Student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 1,\r\n    \"name\" : \"John\",\r\n    \"grade\" : \"2\",\r\n    \"mobile\" : \"9897865766\",\r\n    \"schoolName\" : \"St Paul Convent School\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/student/1",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/student/1",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/transactions",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transaction By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/transaction/1",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collect Fee / Add Transaction With Receipt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tuitionFee\" : 200,\r\n    \"paymentMethod\" : \"CARD\",\r\n    \"cardType\" : \"visa\",\r\n    \"cardNumber\" : \"26788789\",\r\n    \"studentId\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/transaction",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Receipt By Transaction Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gatewayURL}}/api/v1/receipt/1",
+					"host": [
+						"{{gatewayURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"receipt",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "gatewayURL",
+			"value": "http://localhost:8060",
+			"type": "string"
+		}
+	]
+}
