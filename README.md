@@ -1,7 +1,7 @@
 # MicroServices Assessment
 
 This is a Micro-Service Project providing Student Management, Fee Collection and Receipt Generation APIs.
-It uses Sprint Boot, Spring Cloud, Eureka (Discovery Server) and Zuul (API gateway, Proxy)
+It uses Sprint Boot, Spring Cloud, Eureka (Discovery Server) and Spring Cloud API Gateway.
 
 ##Getting Started
 These instruction will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -178,12 +178,15 @@ After running discovery-service, its monitoring console available on `8761` port
 ### Swagger
 
 http://localhost:8082/swagger-ui/index.html ( student-service )
+
 http://localhost:8081/swagger-ui/index.html ( transaction-service )
 
 ### H2-Database Console
 
-http://localhost:8081/h2-console ( transaction-service )
 http://localhost:8082/h2-console ( student-service )
+
+http://localhost:8081/h2-console ( transaction-service )
+
 
 ### Postman Collection
 
