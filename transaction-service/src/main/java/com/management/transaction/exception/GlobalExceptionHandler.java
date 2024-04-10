@@ -1,4 +1,4 @@
-package com.management.student.exception;
+package com.management.transaction.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(StudentException.class)
-    public ResponseEntity<?> resourceNotFoundException(StudentException ex) {
+    @ExceptionHandler(TransactionException.class)
+    public ResponseEntity<?> resourceNotFoundException(TransactionException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

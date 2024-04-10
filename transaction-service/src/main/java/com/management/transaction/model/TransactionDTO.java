@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDTO {
-    private Long studentId;
+public class TransactionDTO {
+    private LocalDateTime transactionDate;
     private String studentName;
-    private String grade;
-    private String mobile;
-    private String schoolName;
+    private Long studentId;
+    private Long reference;
+    private String cardNumber;
+    private String cardType;
 }

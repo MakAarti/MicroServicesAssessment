@@ -1,2 +1,14 @@
-package com.management.transaction.model;public class ReceiptDTO {
+package com.management.transaction.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReceiptDTO {
+    private StudentDTO student;
+    private TransactionDTO transaction;
+    private String emailNote;
 }

@@ -3,44 +3,94 @@ package com.management.transaction.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
-@Table(name = "receipt")
+@Table(name = "transaction")
 @Entity
-public class Receipt implements Serializable {
+public class Transaction implements Serializable {
 
-    @Column(name = "receipt_id")
+    @Column(name = "transaction_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long transactionID;
 
-    @Column(name = "student_id")
-    private Long studentId;
-    @Column(name = "transaction_id")
-    private Long transactionId;;
+
+    private Long tuitionFee;
+    private LocalDateTime transactionDate;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+    private String cardType;
+    private String cardNumber;
+
     private Boolean active;
 
-    public Long getId() {
-        return id;
+    @Transient
+    private Long studentId;
+
+    public enum PaymentMethod {
+        CASH, CARD
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionID=" + transactionID +
+                ", tuitionFee=" + tuitionFee +
+                ", transactionDate=" + transactionDate +
+                ", paymentMethod=" + paymentMethod +
+                ", cardType='" + cardType + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", active=" + active +
+                ", studentId=" + studentId +
+                '}';
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getTransactionID() {
+        return transactionID;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setTransactionID(Long transactionID) {
+        this.transactionID = transactionID;
     }
 
-    public Long getTransactionId() {
-        return transactionId;
+    public Long getTuitionFee() {
+        return tuitionFee;
     }
 
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+    public void setTuitionFee(Long tuitionFee) {
+        this.tuitionFee = tuitionFee;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public Boolean getActive() {
@@ -51,13 +101,11 @@ public class Receipt implements Serializable {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return "Receipt{" +
-                "id=" + id +
-                ", studentId=" + studentId +
-                ", transactionId=" + transactionId +
-                ", active=" + active +
-                '}';
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }

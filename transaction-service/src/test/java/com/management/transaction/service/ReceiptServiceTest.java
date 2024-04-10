@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,7 +50,7 @@ public class ReceiptServiceTest {
   RestTemplateBuilder restTemplateBuilder;
   
   @BeforeEach
-  public void init() { MockitoAnnotations.initMocks( testClass: this); }
+  public void init() { MockitoAnnotations.initMocks( this); }
   
   @Test
   public void testSave() {
@@ -71,16 +70,16 @@ public class ReceiptServiceTest {
     InstanceInfo instanceInfo = mock(InstanceInfo.class);
     when(eurekaClient.getApplication("student-service")).thenReturn(application);
     when(application.getInstances()).thenReturn(Arrays.asList(instanceInfo));
-    when(instanceInfo.getIPAddr()).thenReturn(t "localhost");
-    when(instanceInfo.getPort()).thenReturn(t 8080);
+    when(instanceInfo.getIPAddr()).thenReturn( "localhost");
+    when(instanceInfo.getPort()).thenReturn( 8080);
     Student student = new Student();
     student.setId(1L);
     student.setName("John Doe");
     student.setGrade("A");
     student.setSchoolName("XYZ School");
     student.setMobile("1234567890");
-    when(restTemplate.getFor0bject(anyString(, eq(Student.class))).thenReturn(student);
-    
+    when(restTemplate.getForObject(anyString(), eq(Student.class))).thenReturn(student);
+
     Transaction transaction = new Transaction();
     transaction.setCardNumber("1234567890123456");
     transaction.setCardType("VISA");

@@ -1,62 +1,75 @@
-package com.management.student.service;
+package com.management.transaction.service;
 
-import com.management.student.exception.ResourceNotFoundException;
-import com.management.student.exception.StudentException;
 import com.management.student.entity.Student;
-import com.management.student.repository.StudentRepository;
+import com.management.transaction.entity.Receipt;
+import com.management.transaction.entity.Transaction;
+import com.management.transaction.model.ReceiptDTO;
+import com.management.transaction.model.StudentDTO;
+import com.management.transaction.model.TransactionDTO;
+import com.management.transaction.repository.ReceiptRepository;
+import com.management.transaction.repository.TransactionRepository;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
+import com.netflix.discovery.shared.Application;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+public class ReceiptService {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private ReceiptRepository receiptRepository;
 
-    public Student save(Student student) throws StudentException {
-        student.setActive(Boolean.TRUE);
-        return studentRepository.save(student);
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private EurekaClient eurekaClient;
+
+    public ReceiptService(RestTemplateBuilder restTemplateBuilder){
+        this.restTemplate = restTemplateBuilder.build();
     }
 
-    public List<Student> getAll() {
-        List<Student> students = studentRepository.findAll();
-        if(students.size() == 0)
-            throw new StudentException("Students not found...");
-        else
-            return students;
+    public Receipt save(Receipt receipt) {
+        return receiptRepository.save(receipt);
     }
 
-    public Optional<Student> get(Long id) {
-        return studentRepository.findById(id);
-    }
+    public ReceiptDTO getReceiptByTransactionId(Long transactionId) {
+        Receipt receipt = receiptRepository.findByTransactionId(transactionId);
 
-    public void delete(Long id) throws StudentException {
-        Optional<Student> student = studentRepository.findById(id);
-        if(student.isPresent())
-        {
-            studentRepository.deleteById(id);
-        }
-        else throw new StudentException("Student does not exist with this Id : " + id);
-    }
+        Application application = eurekaClient.getApplication("student-service");
+        InstanceInfo instanceInfo = application.getInstances().get(0);
 
-    public Student inactivateStudent(Long id) {
-        Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + id));
-        student.setActive(false);
-        return studentRepository.save(student);
-    }
+        String studentServiceUrl = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/" + "api/v1/student/" + receipt.getStudentId();
 
-    public Student updateStudent(Long id, Student studentDetails) throws ResourceNotFoundException {
-        Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + id));
-        student.setName(studentDetails.getName());
-        student.setGrade(studentDetails.getGrade());
-        student.setMobile(studentDetails.getMobile());
-        student.setSchoolName(studentDetails.getSchoolName());
-        final Student updatedStudent = studentRepository.save(student);
-        return updatedStudent;
+        Student student = restTemplate.getForObject(studentServiceUrl, Student.class);
+        ReceiptDTO receiptDTO = new ReceiptDTO();
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setStudentId(student.getId());
+        studentDTO.setStudentName(student.getName());
+        studentDTO.setGrade(student.getGrade());
+        studentDTO.setSchoolName(student.getSchoolName());
+        studentDTO.setMobile(student.getMobile());
+
+        TransactionDTO transactionDTO = new TransactionDTO();
+        Optional<Transaction> transaction = transactionRepository.findById(receipt.getTransactionId());
+        transactionDTO.setCardNumber(transaction.get().getCardNumber());
+        transactionDTO.setCardType(transaction.get().getCardType());
+        transactionDTO.setStudentName(student.getName());
+        transactionDTO.setStudentId(student.getId());
+        transactionDTO.setTransactionDate(transaction.get().getTransactionDate());
+        transactionDTO.setReference(transaction.get().getTransactionID());
+        
+        receiptDTO.setStudent(studentDTO);
+        receiptDTO.setTransaction(transactionDTO);
+        receiptDTO.setEmailNote("This is an automated email, please do not reply. For any other query, please email us at contactus@skiply.ae");
+        return receiptDTO;
     }
 }

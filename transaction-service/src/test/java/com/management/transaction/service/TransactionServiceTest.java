@@ -22,7 +22,7 @@ public class TransactionServiceTest {
   TransactionRepository transactionRepository;
   
   @Mock
-  ReceiptService receiptservice;
+  ReceiptService receiptService;
   
   @BeforeEach
   public void init() { MockitoAnnotations.initMocks(this); }
@@ -32,7 +32,7 @@ public class TransactionServiceTest {
     Transaction transaction = new Transaction();
     Receipt receipt = new Receipt();
     when(transactionRepository.save(any(Transaction.class))).thenReturn(transaction);
-    when(receiptService.save(any(Receipt.class))).thenReturn(receipt);|
+    when(receiptService.save(any(Receipt.class))).thenReturn(receipt);
     Transaction response = transactionService.save(transaction);
     assertEquals(transaction, response);
   }
@@ -48,7 +48,7 @@ public class TransactionServiceTest {
   @Test
   public void testGet() {
     Transaction transaction = new Transaction();
-    when(transactionRepository.findById(anyLong())).thenReturn(0ptional.of(transaction));
+    when(transactionRepository.findById(anyLong())).thenReturn(Optional.of(transaction));
     Optional<Transaction> response = transactionService.get(1L);
     assertTrue(response.isPresent());
     assertEquals(transaction, response.get());
