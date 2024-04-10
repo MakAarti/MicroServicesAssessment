@@ -178,5 +178,13 @@ After running discovery-service, its monitoring console available on `8761` port
 ### Swagger
 
 http://localhost:8082/swagger-ui/index.html
+http://localhost:8081/swagger-ui/index.html
+
+### H2-Database Console
+
+http://localhost:8081/h2-console ( transaction-service )
+http://localhost:8082/h2-console ( student-service )
 
 ### Postman Collection
+
+https://github.com/MakAarti/MicroServicesAssessment/blob/main/MicroServiceAssessment.postman_collection.json
